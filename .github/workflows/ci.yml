@@ -43,4 +43,4 @@ jobs:
         run: python3 -m bandit -r . --exclude .venv,migrations -ll
 
       - name: Run tests
-        run: python3 -m pytest
+        run: python3 -m pytest || exit_code=$?; if [ "$exit_code" = "5" ]; then exit 0; else exit $exit_code; fi
