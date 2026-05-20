@@ -3,12 +3,14 @@ import requests
 
 class SimBriefService:
     BASE_URL = "https://www.simbrief.com/api/xml.fetcher.php"
+    TIMEOUT = 10
 
     @staticmethod
     def fetch_latest_flight(pilot_id):
         response = requests.get(
             SimBriefService.BASE_URL,
-            params={"userid": pilot_id, "json": 1}
+            params={"userid": pilot_id, "json": 1},
+            timeout=SimBriefService.TIMEOUT
         )
         data = response.json()
         return {
