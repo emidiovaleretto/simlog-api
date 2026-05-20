@@ -31,7 +31,7 @@ A Django REST API for flight simulation enthusiasts. The project brings together
 
 ## Project Structure
 
-\`\`\`bash
+```bash
 simlog-api/
 ├── accounts/
 ├── checklist/
@@ -54,7 +54,7 @@ simlog-api/
 ├── pytest.ini
 ├── .flake8
 └── manage.py
-\`\`\`
+```
 
 ## Getting Started
 
@@ -66,51 +66,51 @@ simlog-api/
 
 ### Clone the repository
 
-\`\`\`bash
+```bash
 git clone https://github.com/emidiovaleretto/simlog-api.git
 cd simlog-api
-\`\`\`
+```
 
 ### Create a virtual environment
 
-\`\`\`bash
+```bash
 python3 -m venv .venv
 source .venv/bin/activate
-\`\`\`
+```
 
 ### Install dependencies
 
-\`\`\`bash
+```bash
 pip install -r requirements/development.txt
-\`\`\`
+```
 
 ### Configure environment variables
 
-\`\`\`bash
+```bash
 cp .env.example .env
-\`\`\`
+```
 
 Edit `.env` and fill in the required values.
 
 ### Apply migrations
 
-\`\`\`bash
+```bash
 python3 manage.py migrate
-\`\`\`
+```
 
 ### Run the development server
 
-\`\`\`bash
+```bash
 python3 manage.py runserver
-\`\`\`
+```
 
 Then open: http://127.0.0.1:8000/
 
 ## Running Tests
 
-\`\`\`bash
+```bash
 python3 -m pytest
-\`\`\`
+```
 
 ## SimBrief Integration
 
