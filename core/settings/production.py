@@ -1,9 +1,15 @@
-from .base import *
 from decouple import config
+
+from .base import *
+
+
+def parse_allowed_hosts(hosts_string):
+    return [host.strip() for host in hosts_string.split(',')]
+
 
 DEBUG = False
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [s.strip() for s in v.split(',')])
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=parse_allowed_hosts)
 
 DATABASES = {
     'default': {
