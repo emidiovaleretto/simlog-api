@@ -1,5 +1,6 @@
 import requests
 
+
 class SimBriefService:
     BASE_URL = "https://www.simbrief.com/api/xml.fetcher.php"
 
