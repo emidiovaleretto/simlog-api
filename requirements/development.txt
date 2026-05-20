@@ -1,0 +1,6 @@
+-r base.txt
+pytest>=8.0
+pytest-django>=4.8
+flake8>=7.0
+bandit>=1.7
+factory-boy>=3.3
