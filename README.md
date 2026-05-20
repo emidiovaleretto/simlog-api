@@ -1,146 +1,124 @@
-# flightsim-app
+# simlog-api
 
-![Python](https://img.shields.io/badge/Python-3.x-blue?logo=python&logoColor=white)
+![CI](https://github.com/emidiovaleretto/simlog-api/actions/workflows/ci.yml/badge.svg)
+![Python](https://img.shields.io/badge/Python-3.12-blue?logo=python&logoColor=white)
 ![Django](https://img.shields.io/badge/Django-5.x-092E20?logo=django&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Status](https://img.shields.io/badge/Status-In%20Development-orange)
 
-A Django-based web application designed for flight simulation enthusiasts.
-
-The project aims to bring together tools and workflows commonly used in virtual aviation, including flight logging, operational checklists, user accounts, and integration with SimBrief flight planning data.
+A Django REST API for flight simulation enthusiasts. The project brings together tools and workflows commonly used in virtual aviation, including flight logging, operational checklists, user accounts, and integration with SimBrief flight planning data.
 
 ## Overview
 
-`flightsim-app` is currently in the early stages of development. The project has been structured into focused Django apps to keep responsibilities separated and to support future growth in a clean and maintainable way.
+`simlog-api` is the backend service for the **simlog** app — a companion app for Microsoft Flight Simulator. It exposes a REST API consumed by the React Native mobile app.
 
 ### Current modules
 
-- `accounts` — user-related features.
+- `accounts` — user authentication and profiles.
 - `logbook` — flight logging and tracking.
-- `checklist` — operational checklists.
-- `services.py` — SimBrief API integration layer.
-
-## Features so far
-
-- Django project scaffold created.
-- Environment variables managed through `.env`.
-- SimBrief service layer prepared for fetching flight plan data.
-- Project separated into modular apps for easier future expansion.
+- `checklist` — operational checklists per aircraft.
+- `simbrief` — SimBrief API integration layer.
 
 ## Tech Stack
 
-- Python
-- Django
-- Requests
-- python-dotenv or environment-based configuration
+- Python 3.12
+- Django 5.x
+- Django REST Framework
+- djangorestframework-simplejwt
+- python-decouple
+- PostgreSQL (production) / SQLite (development)
+- pytest + flake8 + bandit (CI)
 
 ## Project Structure
 
-```bash
-flightsim-app/
+\`\`\`bash
+simlog-api/
 ├── accounts/
 ├── checklist/
 ├── logbook/
+├── simbrief/
+│   └── services.py
 ├── core/
-├── services.py
-├── .env
-├── requirements.txt
+│   ├── settings/
+│   │   ├── base.py
+│   │   ├── development.py
+│   │   └── production.py
+│   ├── urls.py
+│   ├── wsgi.py
+│   └── asgi.py
+├── requirements/
+│   ├── base.txt
+│   ├── development.txt
+│   └── production.txt
+├── .env.example
+├── pytest.ini
+├── .flake8
 └── manage.py
-```
+\`\`\`
 
 ## Getting Started
 
 ### Prerequisites
 
-Make sure you have the following installed:
-
-- Python 3.10+.
-- pip.
-- Git.
+- Python 3.12+
+- pip
+- Git
 
 ### Clone the repository
 
-```bash
-git clone https://github.com/emidiovaleretto/flightsim-app.git
-cd flightsim-app
-```
+\`\`\`bash
+git clone https://github.com/emidiovaleretto/simlog-api.git
+cd simlog-api
+\`\`\`
 
 ### Create a virtual environment
 
-#### macOS / Linux
-
-```bash
+\`\`\`bash
 python3 -m venv .venv
 source .venv/bin/activate
-```
-
-#### Windows
-
-```bash
-python -m venv .venv
-.venv\Scripts\activate
-```
+\`\`\`
 
 ### Install dependencies
 
-```bash
-pip install -r requirements.txt
-```
+\`\`\`bash
+pip install -r requirements/development.txt
+\`\`\`
 
 ### Configure environment variables
 
-Create a `.env` file in the project root:
+\`\`\`bash
+cp .env.example .env
+\`\`\`
 
-```env
-SECRET_KEY=your-secret-key
-DEBUG=True
-```
-
-If you later add more settings, such as API keys or database credentials, keep them in this file as well.
+Edit `.env` and fill in the required values.
 
 ### Apply migrations
 
-```bash
-python manage.py migrate
-```
+\`\`\`bash
+python3 manage.py migrate
+\`\`\`
 
 ### Run the development server
 
-```bash
-python manage.py runserver
-```
+\`\`\`bash
+python3 manage.py runserver
+\`\`\`
 
-Then open:
+Then open: http://127.0.0.1:8000/
 
-```bash
-http://127.0.0.1:8000/
-```
+## Running Tests
+
+\`\`\`bash
+python3 -m pytest
+\`\`\`
 
 ## SimBrief Integration
 
-This project includes a service layer intended to consume SimBrief API data and extract flight information such as:
-
-- origin.
-- destination.
-- aircraft.
-- fuel planning.
-- route.
-- passenger count.
-
-SimBrief is a flight planning platform widely used in virtual aviation, and its API is designed for developers who want to integrate dispatch and flight-planning data into their own tools [web:72][web:77].
+This project includes a service layer to consume SimBrief API data and extract flight information such as origin, destination, aircraft, fuel planning, route and passenger count.
 
 ## Roadmap
 
-- Expand the accounts module.
-- Build logbook and checklist workflows.
-- Improve SimBrief data handling and error management.
-- Add templates or API endpoints for displaying flight data.
-- Add automated tests.
-- Prepare the project for deployment.
-
-## Contributing
-
-This project is under active development. Contributions, suggestions, and issue reports are welcome.
+See the [open issues](https://github.com/emidiovaleretto/simlog-api/issues) for a full list of proposed features and known issues.
 
 ## License
 
