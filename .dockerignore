@@ -1,0 +1,11 @@
+.venv
+__pycache__
+*.pyc
+*.pyo
+.git
+.gitignore
+.env
+db.sqlite3
+*.md
+.pytest_cache
+.flake8
