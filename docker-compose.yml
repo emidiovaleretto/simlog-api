@@ -2,12 +2,12 @@ services:
   api:
     build: .
     command: python3 manage.py runserver 0.0.0.0:8000
-    volumes:
-      - .:/app
     ports:
       - "8000:8000"
     env_file:
       - .env
+    environment:
+      - DJANGO_SETTINGS_MODULE=core.settings.docker
     depends_on:
       db:
         condition: service_healthy
