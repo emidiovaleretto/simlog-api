@@ -1,4 +1,4 @@
-from django.db.models import Avg, Count, Sum
+from django.db.models import Avg
 
 from rest_framework import generics, permissions
 from rest_framework.response import Response
