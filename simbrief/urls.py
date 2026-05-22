@@ -1,7 +1,8 @@
 from django.urls import path
-from . import views
 
+from .views import SimBriefImportView, SimBriefLatestView
 
 urlpatterns = [
-    path('', views.index),
+    path("latest/", SimBriefLatestView.as_view(), name="simbrief-latest"),
+    path("import/", SimBriefImportView.as_view(), name="simbrief-import"),
 ]
