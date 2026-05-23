@@ -104,13 +104,13 @@ class TestFlightListCreateEndpoint:
         api_client.force_authenticate(user=user_one)
         response = api_client.get("/api/flights/")
         assert response.status_code == 200
-        assert len(response.data) == 2
+        assert response.data["count"] == 2
 
     def test_list_flights_returns_empty_list_when_no_flights(self, authenticated_client):
         client, user = authenticated_client
         response = client.get("/api/flights/")
         assert response.status_code == 200
-        assert len(response.data) == 0
+        assert response.data["count"] == 0
 
 
 @pytest.mark.django_db
