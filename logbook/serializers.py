@@ -45,3 +45,5 @@ class FlightStatsSerializer(serializers.Serializer):
     total_hours = serializers.FloatField()
     airports_visited = serializers.IntegerField()
     avg_score = serializers.FloatField(allow_null=True)
+    most_flown_aircraft = serializers.CharField(allow_null=True)
+    most_visited_airports = serializers.ListField(child=serializers.DictField())

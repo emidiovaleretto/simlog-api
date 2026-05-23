@@ -45,7 +45,7 @@ class TestAircraftEndpoint:
         api_client.force_authenticate(user=user_one)
         response = api_client.get("/api/aircraft/")
         assert response.status_code == 200
-        assert len(response.data) == 2
+        assert response.data["count"] == 2
 
     def test_retrieve_aircraft_with_checklists_returns_200(self, authenticated_client):
         client, user = authenticated_client
@@ -98,7 +98,7 @@ class TestChecklistEndpoint:
         ChecklistFactory(aircraft=aircraft)
         response = client.get(f"/api/aircraft/{aircraft.id}/checklists/")
         assert response.status_code == 200
-        assert len(response.data) == 2
+        assert response.data["count"] == 2
 
     def test_retrieve_checklist_with_items_returns_200(self, authenticated_client):
         client, user = authenticated_client
@@ -145,7 +145,7 @@ class TestChecklistItemEndpoint:
         ChecklistItemFactory(checklist=checklist)
         response = client.get(f"/api/checklists/{checklist.id}/items/")
         assert response.status_code == 200
-        assert len(response.data) == 2
+        assert response.data["count"] == 2
 
     def test_delete_item_returns_204(self, authenticated_client):
         client, user = authenticated_client
