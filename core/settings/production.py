@@ -21,3 +21,15 @@ DATABASES = {
         'PORT': config('DB_PORT', default='5432'),
     }
 }
+
+# CORS — permite o frontend consumir a API
+CORS_ALLOWED_ORIGINS = config(
+    'CORS_ALLOWED_ORIGINS',
+    cast=lambda origins_string: [origin.strip() for origin in origins_string.split(',')],
+    default=''
+)
+
+# Security
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = 'DENY'
