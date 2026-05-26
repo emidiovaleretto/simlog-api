@@ -4,3 +4,5 @@ djangorestframework-simplejwt>=5.3
 python-decouple>=3.8
 psycopg2-binary>=2.9
 requests>=2.31
+whitenoise>=6.7
+django-cors-headers>=4.3
