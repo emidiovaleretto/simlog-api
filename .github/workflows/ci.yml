@@ -58,6 +58,8 @@ jobs:
           echo "DB_PASSWORD=simlog_password" >> .env
           echo "DB_HOST=localhost" >> .env
           echo "DB_PORT=5432" >> .env
+          echo "ALLOWED_HOSTS=localhost,127.0.0.1" >> .env
+          echo "CORS_ALLOWED_ORIGINS=http://localhost:5173" >> .env
 
       - name: Run flake8
         run: python3 -m flake8 . --max-line-length=120
