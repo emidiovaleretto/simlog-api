@@ -12,12 +12,12 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return f"{self.user.username} profile"
-    
+
     def save(self, *args, **kwargs):
         if self.picture_profile:
             resized_image = resize_image(self.picture_profile)
             converted_image = convert_type_image(
-                resized_image, 
+                resized_image,
                 self.user.username
             )
             self.picture_profile = converted_image
