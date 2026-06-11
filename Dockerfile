@@ -11,9 +11,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 COPY requirements/ requirements/
-
-ARG REQUIREMENTS=development
-RUN pip install --upgrade pip && pip install -r requirements/${REQUIREMENTS}.txt
+RUN pip install --upgrade pip && pip install -r requirements/development.txt
 
 COPY . .
 
