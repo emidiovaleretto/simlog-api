@@ -10,6 +10,8 @@
 
 Backend REST API for **simlog** — a SaaS companion app for Microsoft Flight Simulator 2024 pilots. Manage your flight logbook, aircraft checklists and import flight plans directly from SimBrief.
 
+**Live API:** https://web-production-22581.up.railway.app/api/flights/
+
 > **simlog-app** (React frontend) → coming soon
 
 ---
@@ -21,6 +23,7 @@ Backend REST API for **simlog** — a SaaS companion app for Microsoft Flight Si
 - **SimBrief Integration** — fetch your latest flight plan and import it directly into the logbook with one request.
 - **JWT Authentication** — secure endpoints with access and refresh tokens. User profiles with SimBrief pilot ID.
 - **Stats Dashboard** — total flights, hours, airports visited, average score, most flown aircraft and most visited airports.
+- **Picture Profile** — upload with automatic resizing (400px) and JPEG conversion.
 
 ---
 
@@ -38,7 +41,7 @@ Backend REST API for **simlog** — a SaaS companion app for Microsoft Flight Si
 | Security | bandit |
 | CI/CD | GitHub Actions |
 | Containers | Docker + docker-compose |
-
+| Deploy/Hosting | Railway |
 ---
 
 ## API Endpoints
@@ -129,7 +132,7 @@ DEBUG=True
 DB_NAME=simlog
 DB_USER=simlog_user
 DB_PASSWORD=simlog_password
-DB_HOST=db
+DB_HOST=db  # use 'localhost' if running without Docker
 DB_PORT=5432
 ```
 
@@ -165,7 +168,7 @@ docker compose run --rm -it api python3 -m flake8 . --max-line-length=120
 docker compose run --rm -it api python3 -m bandit -r . --exclude .venv,migrations -ll
 ```
 
-**Current test coverage: 69 tests across 4 test files.**
+**Current test coverage: 69 tests across 5 test files.**
 
 | File | Tests |
 |---|---|
@@ -192,8 +195,10 @@ simlog-api/
 ├── checklist/                  # Checklist manager
 │   ├── models.py               # Aircraft, Checklist, ChecklistItem, FlightSession
 │   ├── serializers.py
+│   ├── signals.py              # Auto-create User Profile
 │   ├── views.py
-│   └── urls.py
+│   ├── urls.py
+│   └── utils.py                # Image processing
 ├── logbook/                    # Flight logbook
 │   ├── models.py               # Flight
 │   ├── serializers.py
@@ -210,6 +215,7 @@ simlog-api/
 │   │   ├── development.py
 │   │   ├── docker.py
 │   │   └── production.py
+│   │   └── testing.py
 │   └── urls.py
 ├── tests/                      # Test suite
 │   ├── factories.py
@@ -234,11 +240,12 @@ simlog-api/
 
 ## Development Notes
 
-**Settings are split into three files:**
+**Settings are split into four files:**
 - `base.py` — shared across all environments
 - `development.py` — SQLite, DEBUG=True
 - `docker.py` — PostgreSQL, used by Docker and CI
 - `production.py` — PostgreSQL, DEBUG=False
+- `testing.py` — SQLite, DEBUG=True
 
 **ICAO codes are always validated and uppercased** on origin and destination fields.
 
@@ -249,6 +256,12 @@ simlog-api/
 ---
 
 ## Roadmap
+
+- Social login (Google & GitHub)
+- Profile picture placeholder
+- Cloud storage for media (Cloudinary)
+- Health check endpoint + API status page
+- React frontend (simlog-app)
 
 See the [open issues](https://github.com/emidiovaleretto/simlog-api/issues) for a full list of proposed features.
 
