@@ -23,7 +23,7 @@ class RegisterSerializer(serializers.ModelSerializer):
             email=validated_data.get("email", ""),
             password=validated_data["password"],
         )
-        UserProfile.objects.create(user=user)
+
         return user
 
 
