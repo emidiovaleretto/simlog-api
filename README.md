@@ -10,7 +10,7 @@
 
 Backend REST API for **simlog** — a SaaS companion app for Microsoft Flight Simulator 2024 pilots. Manage your flight logbook, aircraft checklists and import flight plans directly from SimBrief.
 
-**Live API:** https://web-production-22581.up.railway.app/api/flights/
+**Live API:** https://api.simlog.app.br/api/flights/
 
 > **simlog-app** (React frontend) → coming soon
 
