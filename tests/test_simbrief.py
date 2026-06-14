@@ -4,7 +4,6 @@ from rest_framework.test import APIClient
 
 from tests.factories import UserFactory
 
-
 SIMBRIEF_MOCK_RESPONSE = {
     "origin": {"icao_code": "EIDW"},
     "destination": {"icao_code": "KJFK"},
@@ -78,9 +77,7 @@ class TestSimBriefLatestEndpoint:
         assert response.data["block_fuel"] == 18970.0
         assert response.data["trip_fuel"] == 17284.0
 
-    def test_fetch_latest_flight_returns_400_without_pilot_id(
-        self, authenticated_client_without_pilot_id
-    ):
+    def test_fetch_latest_flight_returns_400_without_pilot_id(self, authenticated_client_without_pilot_id):
         client, user = authenticated_client_without_pilot_id
         response = client.get("/api/simbrief/latest/")
         assert response.status_code == 400
@@ -90,9 +87,7 @@ class TestSimBriefLatestEndpoint:
         assert response.status_code == 401
 
     @patch("simbrief.services.requests.get")
-    def test_fetch_latest_flight_returns_502_when_simbrief_is_unreachable(
-        self, mock_get, authenticated_client
-    ):
+    def test_fetch_latest_flight_returns_502_when_simbrief_is_unreachable(self, mock_get, authenticated_client):
         mock_get.side_effect = Exception("Connection error")
         client, user = authenticated_client
         response = client.get("/api/simbrief/latest/")
@@ -121,6 +116,7 @@ class TestSimBriefImportEndpoint:
         client.post("/api/simbrief/import/")
 
         from logbook.models import Flight
+
         assert Flight.objects.filter(user=user, origin="EIDW", destination="KJFK").exists()
 
     @patch("simbrief.services.requests.get")
@@ -133,6 +129,7 @@ class TestSimBriefImportEndpoint:
         client.post("/api/simbrief/import/")
 
         from logbook.models import Flight
+
         flight = Flight.objects.get(user=user, origin="EIDW")
         assert flight.imported_from_simbrief is True
 
@@ -147,12 +144,11 @@ class TestSimBriefImportEndpoint:
         response = client.post("/api/simbrief/import/")
 
         from logbook.models import Flight
+
         assert Flight.objects.filter(user=user).count() == 1
         assert response.status_code == 200
 
-    def test_import_flight_returns_400_without_pilot_id(
-        self, authenticated_client_without_pilot_id
-    ):
+    def test_import_flight_returns_400_without_pilot_id(self, authenticated_client_without_pilot_id):
         client, user = authenticated_client_without_pilot_id
         response = client.post("/api/simbrief/import/")
         assert response.status_code == 400

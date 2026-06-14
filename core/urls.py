@@ -9,5 +9,4 @@ urlpatterns = [
     path("api/flights/", include("logbook.urls")),
     path("api/simbrief/", include("simbrief.urls")),
     path("api/", include("checklist.urls")),
-
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

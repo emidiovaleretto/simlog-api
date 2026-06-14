@@ -35,10 +35,7 @@ class ChecklistListCreateView(generics.ListCreateAPIView):
     permission_classes = (permissions.IsAuthenticated,)
 
     def get_queryset(self):
-        return Checklist.objects.filter(
-            aircraft__user=self.request.user,
-            aircraft_id=self.kwargs["aircraft_pk"]
-        )
+        return Checklist.objects.filter(aircraft__user=self.request.user, aircraft_id=self.kwargs["aircraft_pk"])
 
     def perform_create(self, serializer):
         aircraft = Aircraft.objects.get(pk=self.kwargs["aircraft_pk"])
@@ -61,8 +58,7 @@ class ChecklistItemListCreateView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         return ChecklistItem.objects.filter(
-            checklist__aircraft__user=self.request.user,
-            checklist_id=self.kwargs["checklist_pk"]
+            checklist__aircraft__user=self.request.user, checklist_id=self.kwargs["checklist_pk"]
         )
 
     def perform_create(self, serializer):

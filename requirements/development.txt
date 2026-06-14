@@ -4,3 +4,5 @@ pytest-django>=4.8
 flake8>=7.0
 bandit>=1.7
 factory-boy>=3.3
+black>=26.5,<27.0
+pre-commit>=4.6,<5.0

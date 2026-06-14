@@ -8,9 +8,7 @@ class SimBriefService:
     @staticmethod
     def fetch_latest_flight(pilot_id):
         response = requests.get(
-            SimBriefService.BASE_URL,
-            params={"userid": pilot_id, "json": 1},
-            timeout=SimBriefService.TIMEOUT
+            SimBriefService.BASE_URL, params={"userid": pilot_id, "json": 1}, timeout=SimBriefService.TIMEOUT
         )
         data = response.json()
         return {
