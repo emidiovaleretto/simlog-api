@@ -28,7 +28,7 @@ class TestFlightListCreateEndpoint:
             "arrival_time": "2026-05-20T12:30:00Z",
             "flight_level": 280,
             "score": 99.0,
-            "notes": "Great flight!"
+            "notes": "Great flight!",
         }
         response = client.post("/api/flights/", payload, format="json")
         assert response.status_code == 201

@@ -18,15 +18,14 @@ class SimBriefLatestView(APIView):
         if not pilot_id:
             return Response(
                 {"detail": "SimBrief pilot ID not configured. Update your profile first."},
-                status=status.HTTP_400_BAD_REQUEST
+                status=status.HTTP_400_BAD_REQUEST,
             )
 
         try:
             flight_data = SimBriefService.fetch_latest_flight(pilot_id)
         except Exception:
             return Response(
-                {"detail": "SimBrief API is unreachable. Please try again later."},
-                status=status.HTTP_502_BAD_GATEWAY
+                {"detail": "SimBrief API is unreachable. Please try again later."}, status=status.HTTP_502_BAD_GATEWAY
             )
 
         serializer = SimBriefFlightSerializer(flight_data)
@@ -42,15 +41,14 @@ class SimBriefImportView(APIView):
         if not pilot_id:
             return Response(
                 {"detail": "SimBrief pilot ID not configured. Update your profile first."},
-                status=status.HTTP_400_BAD_REQUEST
+                status=status.HTTP_400_BAD_REQUEST,
             )
 
         try:
             flight_data = SimBriefService.fetch_latest_flight(pilot_id)
         except Exception:
             return Response(
-                {"detail": "SimBrief API is unreachable. Please try again later."},
-                status=status.HTTP_502_BAD_GATEWAY
+                {"detail": "SimBrief API is unreachable. Please try again later."}, status=status.HTTP_502_BAD_GATEWAY
             )
 
         flight, created = Flight.objects.get_or_create(
@@ -64,10 +62,11 @@ class SimBriefImportView(APIView):
                 "trip_fuel": flight_data["trip_fuel"],
                 "departure_time": timezone.now(),
                 "imported_from_simbrief": True,
-            }
+            },
         )
 
         from logbook.serializers import FlightSerializer
+
         serializer = FlightSerializer(flight)
         status_code = status.HTTP_201_CREATED if created else status.HTTP_200_OK
         return Response(serializer.data, status=status_code)

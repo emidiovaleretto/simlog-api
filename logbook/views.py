@@ -47,11 +47,7 @@ class FlightStatsView(APIView):
 
         total_flights = flights.count()
 
-        total_seconds = sum(
-            flight.duration.total_seconds()
-            for flight in flights
-            if flight.duration
-        )
+        total_seconds = sum(flight.duration.total_seconds() for flight in flights if flight.duration)
         total_hours = round(total_seconds / 3600, 1)
 
         airports = set()
@@ -64,12 +60,7 @@ class FlightStatsView(APIView):
         if avg_score:
             avg_score = round(avg_score, 1)
 
-        most_flown_aircraft = (
-            flights.values("aircraft")
-            .annotate(total=Count("aircraft"))
-            .order_by("-total")
-            .first()
-        )
+        most_flown_aircraft = flights.values("aircraft").annotate(total=Count("aircraft")).order_by("-total").first()
 
         most_visited_airports = sorted(
             [{"icao": icao, "count": list(airports).count(icao)} for icao in set(airports)],

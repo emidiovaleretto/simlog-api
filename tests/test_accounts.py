@@ -20,57 +20,34 @@ def authenticated_client(api_client):
 @pytest.mark.django_db
 class TestRegisterEndpoint:
     def test_register_with_valid_data_returns_201(self, api_client):
-        payload = {
-            "username": "emidio",
-            "email": "emidio@test.com",
-            "password": "test1234"
-        }
+        payload = {"username": "emidio", "email": "emidio@test.com", "password": "test1234"}
         response = api_client.post("/api/auth/register/", payload, format="json")
         assert response.status_code == 201
 
     def test_register_creates_user_in_database(self, api_client):
-        payload = {
-            "username": "emidio",
-            "email": "emidio@test.com",
-            "password": "test1234"
-        }
+        payload = {"username": "emidio", "email": "emidio@test.com", "password": "test1234"}
         api_client.post("/api/auth/register/", payload, format="json")
         assert User.objects.filter(username="emidio").exists()
 
     def test_register_creates_user_profile_automatically(self, api_client):
-        payload = {
-            "username": "emidio",
-            "email": "emidio@test.com",
-            "password": "test1234"
-        }
+        payload = {"username": "emidio", "email": "emidio@test.com", "password": "test1234"}
         api_client.post("/api/auth/register/", payload, format="json")
         user = User.objects.get(username="emidio")
         assert hasattr(user, "profile")
 
     def test_register_with_duplicate_username_returns_400(self, api_client):
         UserFactory(username="emidio")
-        payload = {
-            "username": "emidio",
-            "email": "outro@test.com",
-            "password": "test1234"
-        }
+        payload = {"username": "emidio", "email": "outro@test.com", "password": "test1234"}
         response = api_client.post("/api/auth/register/", payload, format="json")
         assert response.status_code == 400
 
     def test_register_with_short_password_returns_400(self, api_client):
-        payload = {
-            "username": "emidio",
-            "email": "emidio@test.com",
-            "password": "123"
-        }
+        payload = {"username": "emidio", "email": "emidio@test.com", "password": "123"}
         response = api_client.post("/api/auth/register/", payload, format="json")
         assert response.status_code == 400
 
     def test_register_without_username_returns_400(self, api_client):
-        payload = {
-            "email": "emidio@test.com",
-            "password": "test1234"
-        }
+        payload = {"email": "emidio@test.com", "password": "test1234"}
         response = api_client.post("/api/auth/register/", payload, format="json")
         assert response.status_code == 400
 
