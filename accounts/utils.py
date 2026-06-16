@@ -14,6 +14,7 @@ def resize_image(picture_profile):
 
 def convert_type_image(image, filename):
     buffer = BytesIO()
+    image = image.convert("RGB")
     image.save(buffer, format="JPEG")
     django_file = ContentFile(buffer.getvalue(), name=f"{filename}.jpg")
     return django_file
