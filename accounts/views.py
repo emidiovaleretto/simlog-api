@@ -30,7 +30,7 @@ class MeView(APIView):
         return Response(serializer.data)
 
 
-class GoogleLogin(SocialLoginView):
+class GoogleLoginView(SocialLoginView):
     adapter_class = GoogleOAuth2Adapter
-    callback_url = "http://localhost:3000/api/auth/google/callback"
+    callback_url = "http://localhost:3000/auth/google/callback"
     client_class = OAuth2Client
