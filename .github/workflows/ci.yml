@@ -73,6 +73,6 @@ jobs:
           DJANGO_SETTINGS_MODULE: core.settings.docker
 
       - name: Run tests
-        run: python3 -m pytest tests/ -v -W error::DeprecationWarning
+        run: python3 -m pytest tests/ --ds=core.settings.docker -v -W error::DeprecationWarning
         env:
           DJANGO_SETTINGS_MODULE: core.settings.docker
