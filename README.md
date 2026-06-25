@@ -317,6 +317,6 @@ MIT
 Made with ☕️🤎 by **Emidio Valereto** — get in touch!
 
 [![LinkedIn](https://img.shields.io/badge/-Emidio_Valereto-blue?style=flat-square&logo=Linkedin&logoColor=white)](https://www.linkedin.com/in/emidiovalereto/)
-[![Gmail](https://img.shields.io/badge/-emidio.valereto@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white)](mailto:emidio.valereto@gmail.com)
+[![Hire me](https://img.shields.io/badge/Hire_me-2ea44f?style=flat-square&logo=minutemailer&logoColor=white)](mailto:hireme@emidiovaleretto.dev)
 
 [Back to top ⇧](#simlog-api)
