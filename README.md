@@ -3,14 +3,20 @@
 ![CI](https://github.com/emidiovaleretto/simlog-api/actions/workflows/ci.yml/badge.svg)
 ![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=flat&logo=python&logoColor=white)
 ![Django](https://img.shields.io/badge/Django-5.x-092E20?style=flat&logo=django&logoColor=white)
-![DRF](https://img.shields.io/badge/Django_REST_Framework-3.15-092E20?style=flat&logo=django&logoColor=ff1709)
+![DRF](https://img.shields.io/badge/Django_REST_Framework-3.17-092E20?style=flat&logo=django&logoColor=ff1709)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-316192?style=flat&logo=postgresql&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=flat&logo=docker&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat)
 
 Backend REST API for **simlog** — a SaaS companion app for Microsoft Flight Simulator 2024 pilots. Manage your flight logbook, aircraft checklists and import flight plans directly from SimBrief.
 
-**Live API:** https://api.simlog.app.br/api/flights/
+> **Try it live with the demo account:**
+> 1. Open the [interactive docs](https://api.simlog.app.br/api/docs/).
+> 2. Expand **`POST /api/auth/login/`**, click **Try it out**, and log in with:
+>    `{ "username": "demo_pilot", "password": "demo_pilot" }`
+> 3. Copy the **`access`** token from the response.
+> 4. Click the **Authorize** button (top right), paste the token into the **value** field, and confirm.
+> 5. You can now call any authenticated endpoint — try **`GET /api/flights/`**.
 
 > **simlog-app** (React frontend) → coming soon
 
@@ -27,6 +33,20 @@ Backend REST API for **simlog** — a SaaS companion app for Microsoft Flight Si
 
 ---
 
+## Interactive API Docs
+
+The API is fully self-documenting via [drf-spectacular](https://drf-spectacular.readthedocs.io/), generating an OpenAPI 3 schema and interactive UIs:
+
+| Path | Description |
+|---|---|
+| `/api/docs/` | **Swagger UI** — browse and **test** endpoints in the browser (Try it out + Authorize) |
+| `/api/redoc/` | **ReDoc** — clean, readable reference documentation |
+| `/api/schema/` | Raw OpenAPI 3 schema (YAML) |
+
+See the **Try it live** steps at the top to authenticate with the demo account and test protected endpoints.
+
+---
+
 ## Tech Stack
 
 | Layer | Technology |
@@ -36,12 +56,14 @@ Backend REST API for **simlog** — a SaaS companion app for Microsoft Flight Si
 | Auth | JWT (djangorestframework-simplejwt) |
 | Database | PostgreSQL 15 (production) / SQLite (development) |
 | Config | python-decouple |
+| API Docs | drf-spectacular (OpenAPI 3 / Swagger / ReDoc) |
 | Testing | pytest + pytest-django + factory-boy |
 | Linting | flake8 |
 | Security | bandit |
 | CI/CD | GitHub Actions |
 | Containers | Docker + docker-compose |
 | Deploy/Hosting | Railway |
+
 ---
 
 ## API Endpoints
@@ -68,8 +90,8 @@ GET    /api/flights/stats/        Get logbook stats
 **Query parameters:**
 ```
 ?origin=EIDW          Filter by origin ICAO
-?destination=KJFK     Filter by destination ICAO
-?aircraft=A320        Filter by aircraft name
+?destination=EGLL     Filter by destination ICAO
+?aircraft=Fenix       Filter by aircraft name
 ?search=Atlantic      Search in notes
 ```
 
@@ -142,13 +164,23 @@ DB_PORT=5432
 docker compose up --build
 ```
 
+The API will be available at `http://localhost:8000`.
+
 ### Run migrations
 
 ```bash
 docker compose run --rm -it api python3 manage.py migrate
 ```
 
-The API will be available at `http://localhost:8000`.
+### Seed demo data (optional)
+
+Populate the database with a demo account and sample data (aircraft, checklists, flights):
+
+```bash
+docker compose run --rm -it api python3 manage.py loaddata fixtures/demo_data.json
+```
+
+This creates the `demo_pilot` account (password: `demo_pilot`) with realistic sample data, ready to explore via the interactive docs.
 
 ---
 
@@ -168,15 +200,17 @@ docker compose run --rm -it api python3 -m flake8 . --max-line-length=120
 docker compose run --rm -it api python3 -m bandit -r . --exclude .venv,migrations -ll
 ```
 
-**Current test coverage: 69 tests across 5 test files.**
+**Test suite: 74 tests across 7 files** (plus 1 skipped — social login, in progress).
 
 | File | Tests |
 |---|---|
 | test_accounts.py | 15 |
-| test_logbook.py | 17 |
 | test_checklist.py | 20 |
-| test_simbrief.py | 10 |
+| test_logbook.py | 17 |
 | test_logbook_enhancements.py | 7 |
+| test_simbrief.py | 10 |
+| test_user_profile.py | 5 |
+| test_social_login.py | 1 (skipped) |
 
 ---
 
@@ -195,7 +229,7 @@ simlog-api/
 ├── checklist/                  # Checklist manager
 │   ├── models.py               # Aircraft, Checklist, ChecklistItem, FlightSession
 │   ├── serializers.py
-│   ├── signals.py              # Auto-create User Profile
+│   ├── signals.py              # Auto-create UserProfile
 │   ├── views.py
 │   ├── urls.py
 │   └── utils.py                # Image processing
@@ -214,16 +248,20 @@ simlog-api/
 │   │   ├── base.py
 │   │   ├── development.py
 │   │   ├── docker.py
-│   │   └── production.py
+│   │   ├── production.py
 │   │   └── testing.py
-│   └── urls.py
+│   └── urls.py                 # Includes Swagger/ReDoc/schema routes
+├── fixtures/
+│   └── demo_data.json          # Demo account + sample data (loaddata)
 ├── tests/                      # Test suite
 │   ├── factories.py
 │   ├── test_accounts.py
-│   ├── test_logbook.py
 │   ├── test_checklist.py
+│   ├── test_logbook.py
+│   ├── test_logbook_enhancements.py
 │   ├── test_simbrief.py
-│   └── test_logbook_enhancements.py
+│   ├── test_social_login.py
+│   └── test_user_profile.py
 ├── requirements/
 │   ├── base.txt
 │   ├── development.txt
@@ -231,6 +269,7 @@ simlog-api/
 ├── .env.example
 ├── Dockerfile
 ├── docker-compose.yml
+├── railway.json
 ├── pytest.ini
 ├── .flake8
 └── manage.py
@@ -240,12 +279,12 @@ simlog-api/
 
 ## Development Notes
 
-**Settings are split into four files:**
+**Settings are split into five files:**
 - `base.py` — shared across all environments
 - `development.py` — SQLite, DEBUG=True
 - `docker.py` — PostgreSQL, used by Docker and CI
 - `production.py` — PostgreSQL, DEBUG=False
-- `testing.py` — SQLite, DEBUG=True
+- `testing.py` — SQLite (local), PostgreSQL (CI), DEBUG=True
 
 **ICAO codes are always validated and uppercased** on origin and destination fields.
 
@@ -257,11 +296,11 @@ simlog-api/
 
 ## Roadmap
 
-- Social login (Google & GitHub)
-- Profile picture placeholder
-- Cloud storage for media (Cloudinary)
-- Health check endpoint + API status page
-- React frontend (simlog-app)
+- [x] ~~Profile picture placeholder~~ (done)
+- [ ] Social login (Google & GitHub) — *in progress*
+- [ ] Cloud storage for media (Cloudinary)
+- [ ] Health check endpoint + API status page
+- [ ] React frontend (simlog-app)
 
 See the [open issues](https://github.com/emidiovaleretto/simlog-api/issues) for a full list of proposed features.
 
@@ -270,3 +309,14 @@ See the [open issues](https://github.com/emidiovaleretto/simlog-api/issues) for 
 ## License
 
 MIT
+
+---
+
+## Author
+
+Made with ☕️🤎 by **Emidio Valereto** — get in touch!
+
+[![LinkedIn](https://img.shields.io/badge/-Emidio_Valereto-blue?style=flat-square&logo=Linkedin&logoColor=white)](https://www.linkedin.com/in/emidiovalereto/)
+[![Gmail](https://img.shields.io/badge/-emidio.valereto@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white)](mailto:emidio.valereto@gmail.com)
+
+[Back to top ⇧](#simlog-api)
