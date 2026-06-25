@@ -1,0 +1,350 @@
+[
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$TNKT1Nx2cRgnEV6MEi9Arn$drDuLICtGxZM1ODguxhJ3Ba/6G7+qy+drofLoqpEt0c=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "demo_pilot",
+      "first_name": "Demo",
+      "last_name": "Pilot",
+      "email": "demo@simlog.app.br",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-06-01T09:00:00Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+
+  {
+    "model": "checklist.aircraft",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "name": "Fenix",
+      "icao_code": "A320",
+      "created_at": "2026-06-01T09:05:00Z",
+      "updated_at": "2026-06-01T09:05:00Z"
+    }
+  },
+  {
+    "model": "checklist.aircraft",
+    "pk": 2,
+    "fields": {
+      "user": 1,
+      "name": "FSLabs",
+      "icao_code": "A21N",
+      "created_at": "2026-06-01T09:06:00Z",
+      "updated_at": "2026-06-01T09:06:00Z"
+    }
+  },
+  {
+    "model": "checklist.aircraft",
+    "pk": 3,
+    "fields": {
+      "user": 1,
+      "name": "PMDG 737",
+      "icao_code": "B738",
+      "created_at": "2026-06-01T09:07:00Z",
+      "updated_at": "2026-06-01T09:07:00Z"
+    }
+  },
+  {
+    "model": "checklist.aircraft",
+    "pk": 4,
+    "fields": {
+      "user": 1,
+      "name": "PMDG 777",
+      "icao_code": "B77W",
+      "created_at": "2026-06-01T09:08:00Z",
+      "updated_at": "2026-06-01T09:08:00Z"
+    }
+  },
+
+  {
+    "model": "checklist.checklist",
+    "pk": 1,
+    "fields": {
+      "aircraft": 1,
+      "name": "Before Start",
+      "phase": "Pre-flight",
+      "order": 1,
+      "created_at": "2026-06-01T09:10:00Z",
+      "updated_at": "2026-06-01T09:10:00Z"
+    }
+  },
+  {
+    "model": "checklist.checklist",
+    "pk": 2,
+    "fields": {
+      "aircraft": 1,
+      "name": "Before Taxi",
+      "phase": "Taxi",
+      "order": 2,
+      "created_at": "2026-06-01T09:11:00Z",
+      "updated_at": "2026-06-01T09:11:00Z"
+    }
+  },
+  {
+    "model": "checklist.checklist",
+    "pk": 3,
+    "fields": {
+      "aircraft": 1,
+      "name": "Before Takeoff",
+      "phase": "Takeoff",
+      "order": 3,
+      "created_at": "2026-06-01T09:12:00Z",
+      "updated_at": "2026-06-01T09:12:00Z"
+    }
+  },
+  {
+    "model": "checklist.checklist",
+    "pk": 4,
+    "fields": {
+      "aircraft": 1,
+      "name": "After Landing",
+      "phase": "Landing",
+      "order": 4,
+      "created_at": "2026-06-01T09:13:00Z",
+      "updated_at": "2026-06-01T09:13:00Z"
+    }
+  },
+  {
+    "model": "checklist.checklist",
+    "pk": 5,
+    "fields": {
+      "aircraft": 3,
+      "name": "Before Start",
+      "phase": "Pre-flight",
+      "order": 1,
+      "created_at": "2026-06-01T09:14:00Z",
+      "updated_at": "2026-06-01T09:14:00Z"
+    }
+  },
+
+  {
+    "model": "checklist.checklistitem",
+    "pk": 1,
+    "fields": {
+      "checklist": 1,
+      "action": "Cockpit Preparation",
+      "expected_value": "Completed",
+      "order": 1,
+      "created_at": "2026-06-01T09:15:00Z",
+      "updated_at": "2026-06-01T09:15:00Z"
+    }
+  },
+  {
+    "model": "checklist.checklistitem",
+    "pk": 2,
+    "fields": {
+      "checklist": 1,
+      "action": "Gear Pins and Covers",
+      "expected_value": "Removed",
+      "order": 2,
+      "created_at": "2026-06-01T09:15:10Z",
+      "updated_at": "2026-06-01T09:15:10Z"
+    }
+  },
+  {
+    "model": "checklist.checklistitem",
+    "pk": 3,
+    "fields": {
+      "checklist": 1,
+      "action": "Fuel Quantity",
+      "expected_value": "Checked",
+      "order": 3,
+      "created_at": "2026-06-01T09:15:20Z",
+      "updated_at": "2026-06-01T09:15:20Z"
+    }
+  },
+  {
+    "model": "checklist.checklistitem",
+    "pk": 4,
+    "fields": {
+      "checklist": 1,
+      "action": "Beacon",
+      "expected_value": "ON",
+      "order": 4,
+      "created_at": "2026-06-01T09:15:30Z",
+      "updated_at": "2026-06-01T09:15:30Z"
+    }
+  },
+  {
+    "model": "checklist.checklistitem",
+    "pk": 5,
+    "fields": {
+      "checklist": 3,
+      "action": "Flaps",
+      "expected_value": "T/O Config",
+      "order": 1,
+      "created_at": "2026-06-01T09:16:00Z",
+      "updated_at": "2026-06-01T09:16:00Z"
+    }
+  },
+  {
+    "model": "checklist.checklistitem",
+    "pk": 6,
+    "fields": {
+      "checklist": 3,
+      "action": "Flight Controls",
+      "expected_value": "Checked",
+      "order": 2,
+      "created_at": "2026-06-01T09:16:10Z",
+      "updated_at": "2026-06-01T09:16:10Z"
+    }
+  },
+  {
+    "model": "checklist.checklistitem",
+    "pk": 7,
+    "fields": {
+      "checklist": 3,
+      "action": "Cabin",
+      "expected_value": "Secure",
+      "order": 3,
+      "created_at": "2026-06-01T09:16:20Z",
+      "updated_at": "2026-06-01T09:16:20Z"
+    }
+  },
+  {
+    "model": "checklist.checklistitem",
+    "pk": 8,
+    "fields": {
+      "checklist": 4,
+      "action": "Flaps",
+      "expected_value": "Up",
+      "order": 1,
+      "created_at": "2026-06-01T09:17:00Z",
+      "updated_at": "2026-06-01T09:17:00Z"
+    }
+  },
+  {
+    "model": "checklist.checklistitem",
+    "pk": 9,
+    "fields": {
+      "checklist": 4,
+      "action": "APU",
+      "expected_value": "Start",
+      "order": 2,
+      "created_at": "2026-06-01T09:17:10Z",
+      "updated_at": "2026-06-01T09:17:10Z"
+    }
+  },
+
+  {
+    "model": "logbook.flight",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "origin": "EIDW",
+      "destination": "EGLL",
+      "aircraft": "Fenix A320",
+      "departure_time": "2026-06-10T08:00:00Z",
+      "arrival_time": "2026-06-10T09:15:00Z",
+      "imported_from_simbrief": false,
+      "notes": "Smooth morning hop across the Irish Sea.",
+      "created_at": "2026-06-10T09:20:00Z",
+      "updated_at": "2026-06-10T09:20:00Z"
+    }
+  },
+  {
+    "model": "logbook.flight",
+    "pk": 2,
+    "fields": {
+      "user": 1,
+      "origin": "EGLL",
+      "destination": "LEBL",
+      "aircraft": "Fenix A320",
+      "departure_time": "2026-06-12T14:00:00Z",
+      "arrival_time": "2026-06-12T16:05:00Z",
+      "imported_from_simbrief": false,
+      "created_at": "2026-06-12T16:10:00Z",
+      "updated_at": "2026-06-12T16:10:00Z"
+    }
+  },
+  {
+    "model": "logbook.flight",
+    "pk": 3,
+    "fields": {
+      "user": 1,
+      "origin": "LEBL",
+      "destination": "EIDW",
+      "aircraft": "FSLabs A321",
+      "departure_time": "2026-06-14T10:30:00Z",
+      "arrival_time": "2026-06-14T13:00:00Z",
+      "imported_from_simbrief": false,
+      "created_at": "2026-06-14T13:05:00Z",
+      "updated_at": "2026-06-14T13:05:00Z"
+    }
+  },
+  {
+    "model": "logbook.flight",
+    "pk": 4,
+    "fields": {
+      "user": 1,
+      "origin": "EIDW",
+      "destination": "LFPG",
+      "aircraft": "Fenix A320",
+      "departure_time": "2026-06-16T07:45:00Z",
+      "arrival_time": "2026-06-16T09:25:00Z",
+      "imported_from_simbrief": false,
+      "created_at": "2026-06-16T09:30:00Z",
+      "updated_at": "2026-06-16T09:30:00Z"
+    }
+  },
+  {
+    "model": "logbook.flight",
+    "pk": 5,
+    "fields": {
+      "user": 1,
+      "origin": "LPPT",
+      "destination": "EIDW",
+      "aircraft": "PMDG 737-800",
+      "departure_time": "2026-06-18T11:00:00Z",
+      "arrival_time": "2026-06-18T13:40:00Z",
+      "imported_from_simbrief": false,
+      "created_at": "2026-06-18T13:45:00Z",
+      "updated_at": "2026-06-18T13:45:00Z"
+    }
+  },
+  {
+    "model": "logbook.flight",
+    "pk": 6,
+    "fields": {
+      "user": 1,
+      "origin": "EIDW",
+      "destination": "EHAM",
+      "aircraft": "Fenix A320",
+      "departure_time": "2026-06-20T16:00:00Z",
+      "arrival_time": "2026-06-20T17:20:00Z",
+      "imported_from_simbrief": false,
+      "created_at": "2026-06-20T17:25:00Z",
+      "updated_at": "2026-06-20T17:25:00Z"
+    }
+  },
+
+  {
+    "model": "checklist.flightsession",
+    "pk": 1,
+    "fields": {
+      "user": 1,
+      "checklist": 1,
+      "completed_items": [1, 2],
+      "started_at": "2026-06-20T15:30:00Z",
+      "updated_at": "2026-06-20T15:35:00Z"
+    }
+  },
+  {
+    "model": "checklist.flightsession",
+    "pk": 2,
+    "fields": {
+      "user": 1,
+      "checklist": 3,
+      "completed_items": [],
+      "started_at": "2026-06-20T15:45:00Z",
+      "updated_at": "2026-06-20T15:45:00Z"
+    }
+  }
+]
